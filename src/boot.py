@@ -1,41 +1,21 @@
-# boot.py -- run on boot-up
-import network
-from lib.umqttsimple import MQTTClient
-import ubinascii
-import machine
-import esp
-import gc
+from machine import Pin
+from hardware.hardware import Hardware
+from time import sleep_ms
 
-# Replace the following with your WIFI Credentials
-SSID = "wifi-ssid"
-SSI_PASSWORD = "wifi-password"
-MQTT_SERVER = '192.168.1.183'
+board_led = Pin(20, Pin.OUT)
 
-def mqtt_config():
-    #EXAMPLE IP ADDRESS
-    #mqtt_server = '192.168.1.144'
-    client_id = ubinascii.hexlify(machine.unique_id())
-    topic_sub = b'notification'
-    topic_pub = b'hello'
 
-    last_message = 0
-    message_interval = 5
-    counter = 0
+def blick_led():
+    print("Blinking LED")
+    for ind in range(5):
+        board_led.value(0)
+        sleep_ms(250)
+        board_led.value(1)
+        sleep_ms(250)
 
-def do_connect():
-    sta_if = network.WLAN(network.STA_IF)
-    if not sta_if.isconnected():
-        print('connecting to network...')
-        sta_if.active(True)
-        sta_if.connect(SSID, SSI_PASSWORD)
-        while sta_if.isconnected() == False:
-            pass
-    print('Connection successful')
-    print(sta_if.ifconfig())
 
 if __name__ == "__main__":
-    esp.osdebug(None)
-    gc.collect()
-
-    print("Connecting to your wifi...")
-    do_connect()
+    print("Initializig boot.py file")
+    dev_board = Hardware()
+    print(dev_board.read_temperature)
+    blick_led()

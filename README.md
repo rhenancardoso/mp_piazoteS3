@@ -52,3 +52,10 @@ make monitor
 ```
 make erase_all
 ```
+
+# Contributing
+## pre-commit
+1. When copying this repository run
+```
+pre-commit install
+```

@@ -1,3 +1,3 @@
 {
-    "idf.port": "/dev/cu.SLAB_USBtoUART"
+    "idf.port": "/dev/cu.usbmodem01"
 }
