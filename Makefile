@@ -1,7 +1,7 @@
 PROJECT_NAME := Dev-Board-Battery-ESP32-Pico
 
 PORT = /dev/cu.usbserial-10
-MP_FILE_NAME = ESP32_GENERIC-v1.22.0.bin
+MP_FIRMWARE_FILE = firmware/ESP32_GENERIC-v1.22.0.bin
 COPY_MAIN_FILES = main.py boot.py
 COPY_HARDWARE_FOLDER = dev_board
 
@@ -10,7 +10,7 @@ all:
 
 deploy_upy:
 	echo "Flashing Micropython to connected ESP32-PICO"
-	esptool.py --chip esp32 --port $(PORT)  --baud 1000000 write_flash -z 0x1000 $(MP_FILE_NAME)
+	esptool.py --chip esp32 --port $(PORT)  --baud 1000000 write_flash -z 0x1000 $(MP_FIRMWARE_FILE)
 
 erase_all:
 	echo "Erase all flash sector from ESP32-PICO"

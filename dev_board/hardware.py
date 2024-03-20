@@ -17,6 +17,7 @@ class Hardware:
     def __init__(self) -> None:
         self._i2c = I2C(scl=I2C_SCL_PIN, sda=I2C_SDA_PIN, freq=I2C_SPEED_HZ)
         i2c_devices = self._i2c.scan()
+        print(f"I2C devices found: {i2c_devices}")
         if TMP117_address in i2c_devices:
             self.temp_sensor = TMP117(i2c=self._i2c, address=TMP117_address)
         else:
