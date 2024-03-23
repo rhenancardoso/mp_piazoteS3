@@ -1,6 +1,6 @@
 PROJECT_NAME := Dev-Board-Battery-ESP32-Pico
 
-PORT = /dev/cu.usbserial-10
+PORT = /dev/cu.usbserial-210
 MP_FIRMWARE_FILE = firmware/ESP32_GENERIC-v1.22.0.bin
 COPY_MAIN_FILES = main.py boot.py
 COPY_HARDWARE_FOLDER = dev_board

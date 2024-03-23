@@ -1,13 +1,16 @@
 from machine import I2C
+from micropython import const
+
+STC3100_address = const(0x70)
 
 
 class STC3100_cmd:
-    CHARGE_L = 0x02
-    CHARGE_H = 0x03
-    CURRENT_L = 0x06
-    CURRENT_M = 0x07
-    VOLTAGE_L = 0x08
-    VOLTAGE_M = 0x09
+    CHARGE_L = const(0x02)
+    CHARGE_H = const(0x03)
+    CURRENT_L = const(0x06)
+    CURRENT_H = const(0x07)
+    VOLTAGE_L = const(0x08)
+    VOLTAGE_H = const(0x09)
 
 
 class STC3100:
@@ -16,19 +19,37 @@ class STC3100:
     _address: int
     _i2c: I2C
 
-    def __init__(self, i2c: I2C, address=0x70) -> None:
+    def __init__(self, i2c: I2C, address=STC3100_address) -> None:
         self._address = address
         self._i2c = i2c
 
+    def _read_registers(self, registers, length=1):
+        """Private function to read from given register"""
+        # Values held in consecutive registers must be read
+        # with a single I2C access to ensure data integrity
+        self._i2c.writeto(self._address, bytes(registers))
+        return self._i2c.readfrom(self._address, length)
+
     def read_charge(self) -> float:
         """Reads gas gauge charge register"""
-        # Send TMP117 cmd for temperature reading
-        self._i2c.writeto(
-            self._address, bytes([STC3100_cmd.CHARGE_L, STC3100_cmd.CHARGE_H])
+        raw_data = self._read_registers([STC3100_cmd.CHARGE_L, STC3100_cmd.CHARGE_H], 2)
+        raw_charge = raw_data[1] << 8 | raw_data[0]
+        return raw_charge * 2.44  # LSB value is 6.70uVh
+
+    def read_voltage(self) -> float:
+        """Reads gas gauge voltage register"""
+        raw_data = self._read_registers(
+            [STC3100_cmd.VOLTAGE_L, STC3100_cmd.VOLTAGE_H], 2
         )
+        raw_voltage = raw_data[1] << 8 | raw_data[0]
+        return raw_voltage * 1.17e-3  # LSB value is 2.44mV
 
-        # Read response data (2 bytes)
-        raw_data = self._i2c.readfrom(self._address, 2)
-        gas_gauge_raw = raw_data[0] << 8 | raw_data[1]
-
-        return gas_gauge_raw
+    def read_current(self) -> float:
+        """Reads gas gauge current register"""
+        raw_data = self._read_registers(
+            [STC3100_cmd.CURRENT_L, STC3100_cmd.CURRENT_H], 2
+        )
+        raw_current = raw_data[1] << 8 | raw_data[0]
+        return raw_current * 11.77e-3  # LSB value is 11.77uV => but I gues there
+        # is a typo on the datasheet, and it should
+        # be 11.77uAd
