@@ -37,6 +37,6 @@ def update_time_from_ntp():
 
 
 if __name__ == "__main__":
-    print("Initializig Wifi and update local time")
-    connect_to_wifi()
-    update_time_from_ntp()
+    print("Initializing Wifi and update local time")
+    # connect_to_wifi()
+    # update_time_from_ntp()

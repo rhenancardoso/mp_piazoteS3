@@ -34,7 +34,14 @@ class STC3100:
         """Reads gas gauge charge register"""
         raw_data = self._read_registers([STC3100_cmd.CHARGE_L, STC3100_cmd.CHARGE_H], 2)
         raw_charge = raw_data[1] << 8 | raw_data[0]
-        return raw_charge * 2.44  # LSB value is 6.70uVh
+        return raw_charge * 6.70e-6  # LSB value is 6.70uVh
+
+    def read_raw_voltage(self) -> float:
+        """Reads gas gauge voltage register"""
+        raw_data = self._read_registers(
+            [STC3100_cmd.VOLTAGE_L, STC3100_cmd.VOLTAGE_H], 2
+        )
+        return raw_data
 
     def read_voltage(self) -> float:
         """Reads gas gauge voltage register"""
@@ -42,7 +49,7 @@ class STC3100:
             [STC3100_cmd.VOLTAGE_L, STC3100_cmd.VOLTAGE_H], 2
         )
         raw_voltage = raw_data[1] << 8 | raw_data[0]
-        return raw_voltage * 1.17e-3  # LSB value is 2.44mV
+        return raw_voltage * 2.44  # LSB value is 2.44mV
 
     def read_current(self) -> float:
         """Reads gas gauge current register"""
@@ -50,6 +57,5 @@ class STC3100:
             [STC3100_cmd.CURRENT_L, STC3100_cmd.CURRENT_H], 2
         )
         raw_current = raw_data[1] << 8 | raw_data[0]
-        return raw_current * 11.77e-3  # LSB value is 11.77uV => but I gues there
-        # is a typo on the datasheet, and it should
-        # be 11.77uAd
+        return raw_current * 11.77e-3  # LSB value is 11.77uV => but I guess there
+        # is a typo on the datasheet, and it should be 11.77uAd
