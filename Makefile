@@ -1,9 +1,10 @@
 PROJECT_NAME := Dev-Board-Battery-ESP32-Pico
 
-PORT = /dev/cu.usbserial-32440
+PORT = /dev/cu.usbserial-210
 MP_FIRMWARE_FILE = firmware/ESP32_GENERIC-v1.22.0.bin
 COPY_MAIN_FILES = main.py boot.py config.py config.json
-COPY_HARDWARE_FOLDER = dev_board
+COPY_HARDWARE_FOLDER = device
+COPY_UTILS_FOLDER = utils
 COPY_WEBSERVER_FOLDER = web_server
 
 all:
@@ -19,8 +20,8 @@ erase_all:
 
 copy_files:
 	echo "Copying files/folders to ESP32-PICO board"
-	mpremote connect $(PORT) cp -r $(COPY_HARDWARE_FOLDER) :
-	mpremote connect $(PORT) cp -r $(COPY_WEBSERVER_FOLDER) :
+	mpremote connect $(PORT) cp -r $(COPY_HARDWARE_FOLDER) $(COPY_UTILS_FOLDER) :
+	# mpremote connect $(PORT) cp -r $(COPY_WEBSERVER_FOLDER) :
 	mpremote connect $(PORT) cp $(COPY_MAIN_FILES) :
 
 mount_sys:
