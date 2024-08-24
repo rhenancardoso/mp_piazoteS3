@@ -4,8 +4,8 @@ import json
 class config:
     """Class to retrieve the config data"""
 
-    wifi_ssid: str
-    wifi_password: str
+    ap_ssid: str
+    ap_password: str
 
     def __init__(self) -> None:
         self._loadConfigJson()
@@ -15,6 +15,6 @@ class config:
         with open("config.json") as config_f:
             print("Loading JSON object")
             config_data = json.load(config_f)
-            self.wifi_ssid = config_data["WIFI_SSID"]
-            self.wifi_password = config_data["WIFI_PASS"]
+            self.ap_ssid = config_data["AP_SSID"]
+            self.ap_password = config_data["AP_PASS"]
             print("Configuration object loaded")
