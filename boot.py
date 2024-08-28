@@ -28,7 +28,8 @@ def access_point_config():
 
 if __name__ == "__main__":
     print(f"CPU Freq {machine.freq()/1_000_000} MHz")
-    machine.freq(CPU_FREQUENCY)
+    if not machine.freq() == CPU_FREQUENCY:
+        machine.freq(CPU_FREQUENCY)
     rgb_led.set_rgb_led(RgbIndicator.INIT)
     user_led.usb.value(0)
     access_point_config()

@@ -1,5 +1,4 @@
 import socket
-from .web_page import WEB_PAGE_HTML
 
 
 class WebServer:
@@ -11,6 +10,8 @@ class WebServer:
 
     def _web_page(self):
         """Retrieve HTML webpage."""
+        from .web_page import WEB_PAGE_HTML  # avoid cyle-import
+
         return WEB_PAGE_HTML
 
     def check_request(self) -> bool:

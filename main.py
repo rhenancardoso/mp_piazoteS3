@@ -33,8 +33,8 @@ def main():
     rgb_color = RgbIndicator.OFF
     start_time = time.ticks_ms()
     while True:
-        now = time.ticks_ms()
-        if (now - start_time) % UPDATE_INTERVAL_MS <= TOLERANCE_MS:
+        current_tick_ms = time.ticks_ms() - start_time
+        if current_tick_ms % UPDATE_INTERVAL_MS <= TOLERANCE_MS:
             if ap_manager.isconnected():
                 rgb_led.set_cycle_style(LightPattern.UPNDOWN)
                 if websk_manager.check_request():
@@ -55,7 +55,7 @@ def main():
 
             rgb_led.set_rgb_led(rgb_color)
 
-        if (now - start_time) % READINGS_INTERVAL_MS <= TOLERANCE_MS:
+        if current_tick_ms % READINGS_INTERVAL_MS <= TOLERANCE_MS:
             print(f"ESP32 temp: {(esp32.raw_temperature()-32)/1.8:4}")
             if temp_sensor:
                 print(f"Temperature: {temp_sensor.read_temperature():4}")
