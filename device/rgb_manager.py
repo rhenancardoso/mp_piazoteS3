@@ -1,7 +1,8 @@
 from neopixel import NeoPixel
 from utils import RgbIndicator
 
-STEP = 0.05
+STEP = 0.02
+TICK = 0.3
 MAX_BRIGHT = 1
 
 
@@ -52,7 +53,7 @@ class RgbManager:
             self._update_upndown_cycle()
 
         elif self.cycle == LightPattern.BLINK:
-            self._update_blink_cycle(self)
+            self._update_blink_cycle()
 
     def _update_blink_cycle(self):
         if self.current_cycle == Cycle.BRIGHT:
@@ -67,27 +68,27 @@ class RgbManager:
             self._decrease_brightness()
 
     def _increase_brightness(self):
-        self.brightness += STEP
+        self.brightness += STEP * 2
         if self.brightness >= MAX_BRIGHT:
             self.current_cycle = Cycle.DARK
             self.brightness = MAX_BRIGHT
 
     def _decrease_brightness(self):
-        self.brightness -= STEP
-        if self.brightness <= STEP:
+        self.brightness -= STEP * 2
+        if self.brightness <= STEP * 2:
             self.current_cycle = Cycle.BRIGHT
-            self.brightness = STEP
+            self.brightness = STEP * 2
 
     def _increase_tick(self):
-        self.tick += STEP
+        self.tick += TICK
         if self.tick >= MAX_BRIGHT:
             self.current_cycle = Cycle.DARK
             self.tick = MAX_BRIGHT
             self.brightness = 0
 
     def _decrease_tick(self):
-        self.tick -= STEP
-        if self.tick <= STEP:
+        self.tick -= TICK
+        if self.tick <= TICK:
             self.current_cycle = Cycle.BRIGHT
-            self.tick = STEP
+            self.tick = TICK
             self.brightness = MAX_BRIGHT

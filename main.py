@@ -16,6 +16,7 @@ from device import (
 READINGS_INTERVAL_MS = 3000
 UPDATE_INTERVAL_MS = 100
 TOLERANCE_MS = 2
+WDT_TIMEOUT_MS = 2_000
 
 
 def is_ap_connected() -> bool:
@@ -30,9 +31,11 @@ def is_usb_connected() -> bool:
 
 
 def main():
+    # wdt = WDT(timeout=WDT_TIMEOUT_MS)
     rgb_color = RgbIndicator.OFF
     start_time = time.ticks_ms()
     while True:
+        # wdt.feed()
         current_tick_ms = time.ticks_ms() - start_time
         if current_tick_ms % UPDATE_INTERVAL_MS <= TOLERANCE_MS:
             if ap_manager.isconnected():
@@ -44,14 +47,14 @@ def main():
                     time.sleep(1)
                 else:
                     rgb_color = RgbIndicator.HOST_CONNECTED
-                    rgb_led.set_cycle_style(LightPattern.UPNDOWN)
+                    rgb_led.set_cycle_style(LightPattern.FIXED)
 
             elif is_usb_connected():
                 rgb_color = RgbIndicator.USB_CONNECTED
-                rgb_led.set_cycle_style(LightPattern.UPONLY)
+                rgb_led.set_cycle_style(LightPattern.UPNDOWN)
             else:
                 rgb_color = RgbIndicator.HOST_READY
-                rgb_led.set_cycle_style(LightPattern.BLINK)
+                rgb_led.set_cycle_style(LightPattern.UPNDOWN)
 
             rgb_led.set_rgb_led(rgb_color)
 
