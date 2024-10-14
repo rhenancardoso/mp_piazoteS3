@@ -1,7 +1,7 @@
 PROJECT_NAME := ESP32-PICO
 
 PORT_BOOT = /dev/cu.usbmodem101
-PORT = /dev/cu.usbmodem1234561
+PORT = /dev/cu.usbmodem_piazoteS3_1
 ESP32_BOARD = PIAZOTE_S3
 MP_MICROPYTHON_PATH = firmware/micropython/ports/esp32
 MPY_CROSS_PATH = firmware/micropython/mpy-cross

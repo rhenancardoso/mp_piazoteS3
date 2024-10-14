@@ -7,8 +7,6 @@ from device import (
     temp_sensor,
     bat_mon,
     rgb_led,
-    user_led,
-    usb_sense,
     ap_manager,
     websk_manager,
 )
@@ -22,12 +20,6 @@ WDT_TIMEOUT_MS = 2_000
 def is_ap_connected() -> bool:
     """Check if any device is connected to the Access Point."""
     return ap_manager.isconnected()
-
-
-def is_usb_connected() -> bool:
-    """Check if usb is connected."""
-    user_led.usb.value(usb_sense.value())
-    return usb_sense.value()
 
 
 def main():
@@ -49,9 +41,6 @@ def main():
                     rgb_color = RgbIndicator.HOST_CONNECTED
                     rgb_led.set_cycle_style(LightPattern.FIXED)
 
-            elif is_usb_connected():
-                rgb_color = RgbIndicator.USB_CONNECTED
-                rgb_led.set_cycle_style(LightPattern.UPNDOWN)
             else:
                 rgb_color = RgbIndicator.HOST_READY
                 rgb_led.set_cycle_style(LightPattern.UPNDOWN)
@@ -59,7 +48,7 @@ def main():
             rgb_led.set_rgb_led(rgb_color)
 
         if current_tick_ms % READINGS_INTERVAL_MS <= TOLERANCE_MS:
-            print(f"ESP32 temp: {(esp32.raw_temperature()-32)/1.8:4}")
+            print(f"ESP32 temp: {esp32.mcu_temperature():4}")
             if temp_sensor:
                 print(f"Temperature: {temp_sensor.read_temperature():4}")
 

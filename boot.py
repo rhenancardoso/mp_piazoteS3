@@ -3,7 +3,7 @@ import network
 
 import secret
 from config import config
-from device import rgb_led, user_led, ap_manager
+from device import rgb_led, ap_manager
 from utils import RgbIndicator
 
 CPU_FREQUENCY = 80_000_000
@@ -32,5 +32,4 @@ if __name__ == "__main__":
     if not machine.freq() == CPU_FREQUENCY:
         machine.freq(CPU_FREQUENCY)
     rgb_led.set_rgb_led(RgbIndicator.INIT)
-    user_led.usb.value(0)
     access_point_config()
