@@ -1,6 +1,7 @@
 import machine
 import network
 
+import secret
 from config import config
 from device import rgb_led, user_led, ap_manager
 from utils import RgbIndicator
@@ -13,8 +14,8 @@ def access_point_config():
     print("Configuring access point")
     ap_manager.active(True)
     ap_manager.config(
-        essid=CONFIG.ap_ssid,
-        password=CONFIG.ap_password,
+        essid=secret.AP_SSID,
+        password=secret.AP_PASS,
         channel=1,
         authmode=network.AUTH_WPA_WPA2_PSK,
     )

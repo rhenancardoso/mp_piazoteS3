@@ -1,6 +1,4 @@
-from boot import CONFIG
-
-EMPTY = "No value"
+import secret
 
 WEB_PAGE_HTML = f"""
 <!DOCTYPE html>
@@ -29,39 +27,41 @@ WEB_PAGE_HTML = f"""
     <h1 style="color:rgb(0, 215, 255); margin: 2rem 1rem 0rem 1rem;">Piazote Storage</h1>
     <div class="line"></div>
     <table style="color:rgb(0, 215, 255); margin: 1rem 1rem 0rem 0rem; width: 100%;">
-        <td>1. {CONFIG.ap_words[0] if len(CONFIG.ap_words) > 0 else EMPTY}</td>
-        <td>2. {CONFIG.ap_words[1] if len(CONFIG.ap_words) > 1 else EMPTY}</td>
-        <td>3. {CONFIG.ap_words[2] if len(CONFIG.ap_words) > 2 else EMPTY}</td>
+      <tr>
+      <tr>
+        <td>1. {secret.WORD01}</td>
+        <td>2. {secret.WORD02}</td>
+        <td>3. {secret.WORD03}</td>
       </tr>
       <tr>
-        <td>4. {CONFIG.ap_words[3] if len(CONFIG.ap_words) > 3 else EMPTY}</td>
-        <td>5. {CONFIG.ap_words[4] if len(CONFIG.ap_words) > 4 else EMPTY}</td>
-        <td>6. {CONFIG.ap_words[5] if len(CONFIG.ap_words) > 5 else EMPTY}</td>
+        <td>4. {secret.WORD04}</td>
+        <td>5. {secret.WORD05}</td>
+        <td>6. {secret.WORD06}</td>
       </tr>
       <tr>
-        <td>7. {CONFIG.ap_words[6] if len(CONFIG.ap_words) > 6 else EMPTY}</td>
-        <td>8. {CONFIG.ap_words[7] if len(CONFIG.ap_words) > 7 else EMPTY}</td>
-        <td>9. {CONFIG.ap_words[8] if len(CONFIG.ap_words) > 8 else EMPTY}</td>
+        <td>7. {secret.WORD07}</td>
+        <td>8. {secret.WORD08}</td>
+        <td>9. {secret.WORD09}</td>
       </tr>
       <tr>
-        <td>10. {CONFIG.ap_words[9] if len(CONFIG.ap_words) > 9 else EMPTY}</td>
-        <td>11. {CONFIG.ap_words[10] if len(CONFIG.ap_words) > 10 else EMPTY}</td>
-        <td>12. {CONFIG.ap_words[11] if len(CONFIG.ap_words) > 11 else EMPTY}</td>
+        <td>10. {secret.WORD10}</td>
+        <td>11. {secret.WORD11}</td>
+        <td>12. {secret.WORD12}</td>
       </tr>
       <tr>
-        <td>13. {CONFIG.ap_words[12] if len(CONFIG.ap_words) > 12 else EMPTY}</td>
-        <td>14. {CONFIG.ap_words[13] if len(CONFIG.ap_words) > 13 else EMPTY}</td>
-        <td>15. {CONFIG.ap_words[14] if len(CONFIG.ap_words) > 14 else EMPTY}</td>
+        <td>13. {secret.WORD13}</td>
+        <td>14. {secret.WORD14}</td>
+        <td>15. {secret.WORD15}</td>
       </tr>
       <tr>
-        <td>16. {CONFIG.ap_words[15] if len(CONFIG.ap_words) > 15 else EMPTY}</td>
-        <td>17. {CONFIG.ap_words[16] if len(CONFIG.ap_words) > 16 else EMPTY}</td>
-        <td>18. {CONFIG.ap_words[17] if len(CONFIG.ap_words) > 17 else EMPTY}</td>
+        <td>16. {secret.WORD16}</td>
+        <td>17. {secret.WORD17}</td>
+        <td>18. {secret.WORD18}</td>
       </tr>
       <tr>
-        <td>19. {CONFIG.ap_words[18] if len(CONFIG.ap_words) > 18 else EMPTY}</td>
-        <td>20. {CONFIG.ap_words[19] if len(CONFIG.ap_words) > 19 else EMPTY}</td>
-        <td>21. {CONFIG.ap_words[20] if len(CONFIG.ap_words) > 20 else EMPTY}</td>
+        <td>19. {secret.WORD19}</td>
+        <td>20. {secret.WORD20}</td>
+        <td>21. {secret.WORD21}</td>
       </tr>
     </table>
 </body>

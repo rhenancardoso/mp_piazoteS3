@@ -5,8 +5,8 @@ PORT = /dev/cu.usbmodem1234561
 ESP32_BOARD = PIAZOTE_S3
 MP_MICROPYTHON_PATH = firmware/micropython/ports/esp32
 MPY_CROSS_PATH = firmware/micropython/mpy-cross
-COPY_MAIN = main.py boot.py config.json
-COPY_REST = device server utils
+COPY_FILES = main.py boot.py config.json secret.py
+COPY_FOLDER = device server utils
 
 all:
 .PHONY:
@@ -32,11 +32,11 @@ flash_upy: build_upy
 
 copy_rest:
 	echo "Copying the rest to $(ESP32_BOARD) board"
-	mpremote connect $(PORT) cp -r $(COPY_REST) :
+	mpremote connect $(PORT) cp -r $(COPY_FOLDER) :
 
 copy_main:
 	echo "Copying main.py and boot.py to $(ESP32_BOARD) board"
-	mpremote connect $(PORT) cp $(COPY_MAIN) : + repl
+	mpremote connect $(PORT) cp $(COPY_FILES) : + repl
 
 copy_all: copy_rest copy_main
 	echo "Copying all files/folders to $(ESP32_BOARD) board"
