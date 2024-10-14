@@ -23,11 +23,9 @@ def is_ap_connected() -> bool:
 
 
 def main():
-    # wdt = WDT(timeout=WDT_TIMEOUT_MS)
     rgb_color = RgbIndicator.OFF
     start_time = time.ticks_ms()
     while True:
-        # wdt.feed()
         current_tick_ms = time.ticks_ms() - start_time
         if current_tick_ms % UPDATE_INTERVAL_MS <= TOLERANCE_MS:
             if ap_manager.isconnected():
